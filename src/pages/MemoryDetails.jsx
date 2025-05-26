@@ -39,6 +39,9 @@ const MemoryDetails = () => {
   }
   return (
     <Box>
+      <Typography variant="h4" gutterBottom textAlign={"center"} mt={2}>
+        {memoryDetails.title || "Memory Details"}
+      </Typography>
       <TranscriptComponent
         tabValue={tabValue}
         audioTranscript={memoryDetails.transcript}

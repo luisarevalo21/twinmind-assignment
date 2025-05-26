@@ -74,29 +74,39 @@ const PromptModal = ({ handleToggleModal, open, memoryId }) => {
           <CloseIcon color="primary" />
         </Button>
 
-        <TextField
-          fullWidth
-          placeholder="Ask anything about this transcitp..."
-          onChange={handleTextChange}
-          value={text}
-          sx={{
-            border: "none",
-            mt: "1em",
-            outline: "none",
-            "& .MuiOutlinedInput-root": {
-              "& fieldset": { border: "none" },
-              "&:hover fieldset": { border: "none" },
-              "&.Mui-focused fieldset": { border: "none" },
-            },
-            outline: "none",
-          }}
-        />
-        <Button onClick={handleSend}>send</Button>
+        <Box display="flex" alignItems="center" mt={2} mb={2}>
+          <TextField
+            fullWidth
+            placeholder="Ask anything about this transcript..."
+            onChange={handleTextChange}
+            value={text}
+            sx={{
+              border: "none",
+              outline: "none",
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": { border: "none" },
+                "&:hover fieldset": { border: "none" },
+                "&.Mui-focused fieldset": { border: "none" },
+              },
+              mr: 2,
+            }}
+          />
+          <Button
+            onClick={handleSend}
+            variant="contained"
+            sx={{
+              minWidth: "80px",
+              backgroundColor: "primary.main",
+              textTransform: "none",
+            }}
+            disabled={loading || !text.trim()}
+          >
+            Send
+          </Button>
+        </Box>
 
         {loading && <Spinner />}
         {returnedResponse && returnedRes}
-
-        {/* <Box> recomemnedations here</Box> */}
       </Box>
     </Modal>
   );

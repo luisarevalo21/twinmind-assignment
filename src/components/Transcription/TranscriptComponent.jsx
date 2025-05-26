@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Box, Typography, Tabs, Tab } from "@mui/material";
 import TranscriptCardComponent from "./TranscriptCardComponent";
 import TranscriptSummary from "./TranscriptSummaryComponent";
-const TranscriptComponent = ({ audioTranscript, generatedSummary, showSpinner, tabValue, setTabValue }) => {
+const TranscriptComponent = ({ audioTranscript, generatedSummary, showSpinner, tabValue, setTabValue, error }) => {
   const transcript = audioTranscript.map((transcriptedText, index) => <TranscriptCardComponent key={index} transcriptedText={transcriptedText} />);
 
   const handleChange = (event, newValue) => {
@@ -16,6 +16,16 @@ const TranscriptComponent = ({ audioTranscript, generatedSummary, showSpinner, t
       <div role="tabpanel" hidden={value !== index} id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`} {...other}>
         {tabValue === index && <Box sx={{ p: 3 }}>{children}</Box>}
       </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height="100vh">
+        <Typography variant="h6" color="error">
+          {error}
+        </Typography>
+      </Box>
     );
   }
   return (
