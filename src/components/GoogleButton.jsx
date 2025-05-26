@@ -13,7 +13,6 @@ const GoogleButtonComponent = () => {
     signInWithGoogle()
       .then(result => {
         navigate("/dashboard");
-        console.log(result);
       })
       .catch(error => {
         console.error("Error signing in with Google: ", error);

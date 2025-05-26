@@ -27,6 +27,7 @@ const theme = createTheme({
       primary: "#2C2C2E", // dark text
       secondary: "#6E6E73", // medium gray
       disabled: "#8E8E93", // light gray
+      recording: "#9f0404",
     },
 
     // Optional: custom colors

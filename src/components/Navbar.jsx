@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -14,12 +14,19 @@ import MenuItem from "@mui/material/MenuItem";
 import { useAuth } from "../context/authContext/useAuth";
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
+import Timer from "./Timer";
+import { NavLink, useLocation, useNavigate } from "react-router";
 import { signOut } from "../config/auth";
+import { useRecording } from "../context/recordingContext/useRecording";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import { Link } from "@mui/material";
 function Navbar() {
   const { currentUser } = useAuth();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+  const navigate = useNavigate();
+  const { recordingStatus, setRecordingStatus } = useRecording();
+  const location = useLocation();
   const handleOpenNavMenu = event => {
     setAnchorElNav(event.currentTarget);
   };
@@ -39,93 +46,69 @@ function Navbar() {
     <AppBar position="static" sx={{ backgroundColor: "#F5F5F5" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          {/* <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
+          {location.pathname === "/dashboard" ? (
+            <Box>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt={currentUser.displayName.split("")} src={currentUser.photoURL} />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {currentUser && <Button onClick={() => signOut()}>Logout</Button>}
+              </Menu>
+            </Box>
+          ) : (
+            <Link
+              color="primary"
+              underline="none"
+              display="flex"
+              alignItems="center"
+              onClick={() => {
+                navigate("/dashboard");
               }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{ display: { xs: "block", md: "none" } }}
             >
-              {pages.map(page => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: "center" }}>{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box> */}
+              <ArrowBackIosIcon />
+              Home
+            </Link>
+          )}
 
-          {/* <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map(page => (
-              <Button key={page} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }}>
-                {page}
-              </Button>
-            ))}
-          </Box> */}
-          <Box sx={{ flexGrow: 0, marginLeft: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={currentUser.displayName.split("")} src={currentUser.photoURL} />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {currentUser && <Button onClick={() => signOut()}>Logout</Button>}
-              {/* {settings.map(setting => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography sx={{ textAlign: "center" }}>{setting}</Typography>
-                </MenuItem>
-              ))} */}
-            </Menu>
+          <Box margin="0 auto">
+            {recordingStatus === "active" ? (
+              <Timer />
+            ) : (
+              <Typography
+                variant="h5"
+                noWrap
+                component="a"
+                textAlign={"center"}
+                sx={{
+                  mr: 2,
+                  // display: { xs: "flex", md: "none" },
+                  flexGrow: 1,
+                  fontWeight: 700,
+                  color: "#004B75",
+                }}
+                onClick={() => navigate("/dashboard")}
+              >
+                TwinMind
+              </Typography>
+            )}
           </Box>
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            textAlign={"center"}
-            sx={{
-              mr: 2,
-              // display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontWeight: 700,
-              color: "#004B75",
-            }}
-          >
-            TwinMind
-          </Typography>
         </Toolbar>
       </Container>
     </AppBar>

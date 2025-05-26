@@ -1,28 +1,45 @@
 import React, { useRef } from "react";
 import { Box, Typography, TextField, Button } from "@mui/material";
 import MicIcon from "@mui/icons-material/Mic";
-import { useState } from "react";
-import AudioRecorder from "../pages/AudioRecorderPage";
-import { useNavigate } from "react-router";
-const mimeType = "audio/webm";
+import { useLocation, useNavigate } from "react-router";
 import StopCircleIcon from "@mui/icons-material/StopCircle";
-
-const CaptureComponet = ({ recordingStatus, handleStopRecording, audio }) => {
+import { useRecording } from "../context/recordingContext/useRecording";
+const CaptureComponet = ({ handleStopRecording, disabled, handleTextFieldClick, startRecording }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [open, setOpen] = React.useState(false);
 
-  const handleChange = e => {
-    console.log(e.target.value);
+  const { recordingStatus, setRecordingStatus } = useRecording();
+  // const handleChange = e => {
+  //   console.log(e.target.value);
+  // };
+
+  const handleToggleModal = () => {
+    setOpen(!open);
   };
 
   return (
-    <Box display={"flex"} alignItems={"center"} position={"absolute"} bottom={0} justifyContent={"center"} p={2} width={"100%"}>
+    <Box
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      p={2}
+      width="95%"
+      position="fixed"
+      bottom={0}
+      left={0}
+      zIndex={1300}
+      bgcolor="background.paper"
+      boxShadow={3}
+    >
       <TextField
-        size="lg"
         placeholder="type your memory"
         sx={{ borderRadius: "999px", border: "0", outline: "0", backgroundColor: "text" }}
-        onChange={handleChange}
+        onClick={handleTextFieldClick}
+        fullWidth
       />
-      {recordingStatus === "inactive" && (
+
+      {recordingStatus !== "active" && !disabled && (
         <Button
           variant="contained"
           color="primary"
@@ -34,13 +51,20 @@ const CaptureComponet = ({ recordingStatus, handleStopRecording, audio }) => {
             paddingRight: 3,
             textTransform: "none",
           }}
-          onClick={() => navigate("/new-memory")}
+          onClick={() => {
+            if (location.pathname === "/new-memory") {
+              startRecording();
+            } else {
+              navigate("/new-memory");
+            }
+          }}
         >
           <MicIcon />
           Capture
         </Button>
       )}
-      {recordingStatus === "active" && (
+
+      {recordingStatus === "active" && !disabled && (
         <Button
           variant="contained"
           color="primary"
@@ -55,18 +79,18 @@ const CaptureComponet = ({ recordingStatus, handleStopRecording, audio }) => {
           onClick={handleStopRecording}
         >
           <StopCircleIcon />
-          Stop Recording
+          Stop
         </Button>
       )}
 
-      {audio ? (
+      {/* {audio ? (
         <div className="audio-container">
           <audio src={audio} controls></audio>
           <a download href={audio}>
             Download Recording
           </a>
         </div>
-      ) : null}
+      ) : null} */}
     </Box>
   );
 };

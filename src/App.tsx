@@ -5,7 +5,7 @@ import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Navbar from "./components/Navbar.jsx";
 import AudioRecorderPage from "./pages/AudioRecorderPage.jsx";
-import CustomContainer from "./components/Container.jsx";
+import MemoryDetails from "./pages/MemoryDetails.jsx";
 function App() {
   return (
     <>
@@ -22,6 +22,17 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route>
+          <Route
+            path="/memory/:memoryId"
+            element={
+              <ProtectedRoute>
+                <Navbar />
+                <MemoryDetails />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
         <Route
           path="/new-memory"
           element={

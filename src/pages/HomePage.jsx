@@ -13,8 +13,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.get("/");
-        console.log(response.data);
+        // const response = await api.get("/");
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
@@ -29,31 +28,22 @@ const HomePage = () => {
     signInWithGoogle()
       .then(result => {
         navigate("/dashboard");
-        console.log(result);
       })
       .catch(error => {
         console.error("Error signing in with Google: ", error);
       });
   };
+
   return (
     <Box
       display={"flex"}
       flexDirection={"column"}
       alignItems={"center"}
       justifyItems={"center"}
-      width={"100%"}
-      height={"100vh"}
       sx={{
         background:
           "linear-gradient(180deg, rgba(101,147,184,1) 0%, rgba(131,170,200,1) 25%, rgba(161,194,216,1) 50%, rgba(189,179,171,1) 75%, rgba(217,165,126,1) 100%)",
       }}
-      //  background={'linear-gradient(
-      //   180deg,
-      //   rgba(101, 147, 184, 1) 0%,
-      //   rgba(131, 170, 200, 1) 25%,
-      //   rgba(161, 194, 216, 1) 50%,
-      //   rgba(189, 179, 171, 1) 75%,
-      //   rgba(217, 165, 126, 1) 100%")'}
     >
       <Typography variant="h2" flexDirection={"flex-start"}>
         twin
