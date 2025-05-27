@@ -24,7 +24,7 @@ const CaptureComponet = ({ handleStopRecording, disabled, handleTextFieldClick, 
       alignItems="center"
       justifyContent="center"
       p={2}
-      width="95%"
+      width="100%"
       position="fixed"
       bottom={0}
       left={0}
@@ -36,7 +36,6 @@ const CaptureComponet = ({ handleStopRecording, disabled, handleTextFieldClick, 
         placeholder="type your memory"
         sx={{ borderRadius: "999px", border: "0", outline: "0", backgroundColor: "text" }}
         onClick={handleTextFieldClick}
-        fullWidth
       />
 
       {recordingStatus !== "active" && !disabled && (
