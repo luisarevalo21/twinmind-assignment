@@ -9,7 +9,6 @@ export const signInWithGoogle = async () => {
     localStorage.setItem("token", token);
   });
 
-  console.log("result", result);
   await api.post("/api/user/newUser", {
     name: result.user.displayName,
     email: result.user.email,

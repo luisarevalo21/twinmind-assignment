@@ -32,7 +32,6 @@ const PromptModal = ({ handleToggleModal, open, memoryId }) => {
 
   let returnedRes = null;
   if (returnedResponse) {
-    console.log("return eresponse", returnedResponse);
     const { summary } = returnedResponse;
     returnedRes = (
       <Box display={"flex"} flexDirection={"column"} textAlign={"left"} mt={2} mb={2} overflow={"scroll"} maxHeight={"60vh"}>

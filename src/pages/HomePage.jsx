@@ -13,13 +13,14 @@ const HomePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // const response = await api.get("/");
+        const response = await api.get("/");
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
     };
     fetchData();
     if (currentUser) {
+      localStorage.setItem("token", currentUser.accessToken);
       navigate("/dashboard");
     }
   }, [currentUser, navigate]);
@@ -40,6 +41,7 @@ const HomePage = () => {
       flexDirection={"column"}
       alignItems={"center"}
       justifyItems={"center"}
+      height={"100vh"}
       sx={{
         background:
           "linear-gradient(180deg, rgba(101,147,184,1) 0%, rgba(131,170,200,1) 25%, rgba(161,194,216,1) 50%, rgba(189,179,171,1) 75%, rgba(217,165,126,1) 100%)",
