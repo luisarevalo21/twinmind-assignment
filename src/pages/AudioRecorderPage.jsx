@@ -29,7 +29,6 @@ const RecordAudio = () => {
   const [tabValue, setTabValue] = useState(0);
   const [error, setError] = useState(null);
   const handleMemoryTitleChange = e => {
-    console.log("Memory title changed:", e.target.value);
     setMemoryTitle(e.target.value);
   };
   useEffect(() => {
@@ -85,7 +84,6 @@ const RecordAudio = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log("Audio upload response:", response.data);
       memoryIdRef.current = response.data.memoryId;
       setAudioTranscript(prev => [...prev, response.data.text]);
       setMemoryId(response.data.memoryId);
@@ -96,11 +94,9 @@ const RecordAudio = () => {
   };
 
   const recordChunk = stream => {
-    console.log("recording chunk", stream);
     if (!stream || recordingStatusRef.current !== "active") return;
     const media = new MediaRecorder(stream, { type: mimeType });
 
-    console.log("recording chunk");
     mediaRecorder.current = media;
     activeRecorders.current.push(media);
     let localAudioChunks = [];
