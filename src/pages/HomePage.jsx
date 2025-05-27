@@ -4,7 +4,7 @@ import { useAuth } from "../context/authContext/useAuth";
 import { signInWithGoogle, signOut } from "../config/auth";
 import { useNavigate } from "react-router";
 import { api } from "../api";
-import GoogleButton from "../components/GoogleButton";
+import GoogleButton from "../components/GoogleButton.jsx";
 import "../index.css";
 const HomePage = () => {
   const { currentUser } = useAuth();

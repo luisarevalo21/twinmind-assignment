@@ -21,7 +21,7 @@ const RecordAudio = () => {
   const audioChunksRef = useRef([]);
   const [generatedSummary, setGeneratedSummary] = useState("");
   const [showSpinner, setShowSpinner] = useState(false);
-  const chunkDuration = 30000;
+  const chunkDuration = 3000;
   const chunkInterval = useRef(null);
   const activeRecorders = useRef([]);
   const mediaRecorder = useRef(null);
