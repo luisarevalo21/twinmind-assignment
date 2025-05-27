@@ -98,4 +98,4 @@ You can change the title of the memory, but not why it is transcribing audio to 
 
 ## 📎 Related
 
-- [TwinMind Frontend Repo](https://github.com/luisarevalo21/twinmind-assignment-backend)
+- [TwinMind Backend Repo](https://github.com/luisarevalo21/twinmind-assignment-backend)
