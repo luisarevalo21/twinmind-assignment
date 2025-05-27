@@ -95,3 +95,7 @@ Because of this, the input at the bottom is not used.
 There is a 30-second delay in processing for some reason, and it’s unclear why the audio is not being transcribed to text in that time.
 
 You can change the title of the memory, but not why it is transcribing audio to text.
+
+## 📎 Related
+
+- [TwinMind Frontend Repo](https://github.com/luisarevalo21/twinmind-assignment-backend)
